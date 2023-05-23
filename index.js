@@ -1,9 +1,10 @@
 
-const { PrismaClient } = require('@prisma/client')
+//const { PrismaClient } = require('@prisma/client')
 const express = require('express')
 const cors = require('cors')
+const routes = require('./routes')
 
-const prisma = new PrismaClient()
+//const prisma = new PrismaClient()
 const app = express()
 const port = 8000
 
@@ -18,6 +19,7 @@ app.get('/', async (req, res) => {
     })
 })
 
+routes(app)
 
 app.get('/supplier', async (req, res) => {
     const supplier = await prisma.mst_supplier.findMany()
