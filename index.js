@@ -1,18 +1,31 @@
+
 const { PrismaClient } = require('@prisma/client')
+const express = require('express')
+const cors = require('cors')
 
-const prisma = new  PrismaClient()
+const prisma = new PrismaClient()
+const app = express()
+const port = 8000
 
-async function main(){
-    const allSuppliers = await prisma.mst_supplier.findMany()
-    console.log(allSuppliers)
-}
+app.use(cors())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 
-main()
-    .then(async () => {
-        await prisma.$disconnect()
+
+app.get('/', async (req, res) => {
+    res.send({
+        message: 'Hello this is API from Express Tutorial'
     })
-    .catch(async (e) => {
-        console.error(e)
-        await prisma.$disconnect()
-        process.exit(1)
-    })
+})
+
+
+app.get('/supplier', async (req, res) => {
+    const supplier = await prisma.mst_supplier.findMany()
+    res.json(supplier)
+})
+
+
+app.listen(port, () => {
+    console.log('Server is running on http:localhost:${port}')
+})
+
