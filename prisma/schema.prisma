@@ -6,6 +6,55 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Mst_supplier {
+  id_supplier Int @id @default(autoincrement())
+  tb_wos Tb_wo[]
+  tb_dos Tb_do[]
+  name_supplier String 
+  address_supplier String 
+  phone_supplier String
+}
+
+model Mst_rack{
+  id_rack Int @id @default(autoincrement())
+  mst_parts Mst_part[]
+  rack_no String 
+}
+
+model Mst_part{
+  part_no Int @id @default(autoincrement())
+  tb_wo Tb_wo[]
+  tb_do Tb_do[]
+  mst_racks Mst_rack @relation(fields: [mst_rackId], references: [id_rack])
+  part_name String 
+  part_uniq String 
+  mst_rackId Int 
+}
+
+model Tb_wo{
+  id_wo Int @id @default(autoincrement())
+  mst_parts Mst_part @relation(fields: [mst_partId], references: [part_no])
+  mst_suppliers Mst_supplier @relation(fields: [mst_supplierId], references: [id_supplier])
+  qty_kbn Int
+  qty_order Int
+  date_input DateTime @default(now())
+  mst_partId Int 
+  mst_supplierId Int 
+}
+
+model Tb_do{
+  id_do Int @id @default(autoincrement())
+  mst_parts Mst_part @relation(fields: [mst_partId], references: [part_no])
+  mst_suppliers Mst_supplier @relation(fields: [mst_supplierId], references: [id_supplier])
+  qty_kbn Int
+  qty_order Int
+  no_truck String
+  date_input DateTime @default(now())
+  mst_partId Int 
+  mst_supplierId Int 
+}
+
