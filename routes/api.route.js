@@ -217,4 +217,95 @@ router.delete('/rack/:id', async (req, res, next) => {
     }
   });
 
+  //get all tb_wo
+  router.get('/wo', async (req, res, next) => {
+    try {
+      const tb_wos = await prisma.tb_wo.findMany({
+        include: {
+          mst_parts: true,
+          mst_suppliers: true,
+        },
+      });
+    
+        const mst_parts = await prisma.Mst_part.findMany({
+        include:{tb_wo: true}
+        })
+
+        const mst_suppliers = await prisma.Mst_supplier.findMany({
+        include:{tb_wos: true}
+        })
+
+        res.json({tb_wos, mst_parts, mst_suppliers})
+    } catch (error) {
+        next(error)
+    }
+    });
+
+    //get tb_wo by id
+    router.get('/wo/:id', async (req, res, next) => {
+      try {
+        const {id} = req.params
+        const wo = await prisma.tb_wo.findUnique({
+          where:{
+            id_wo: Number(id)
+          },
+          include: {
+            mst_parts: true,
+            mst_suppliers: true,
+          }
+        })
+        res.json(wo)
+      } catch (error) {
+        next(error)
+      }
+    });
+
+    //create wo
+    router.post('/wo', async (req, res, next) => {
+      try {
+          const wo = await prisma.Tb_wo.create({
+          data : req.body
+          })
+      
+          res.json({wo})
+      } catch (error) {
+          next(error)
+      }
+      });
+
+    //update wo by id
+    router.patch('/wo/:id', async (req, res, next) => {
+      try {
+        const {id} = req.params
+        const wo = await prisma.Tb_wo.update({
+          data: req.body,
+          where:{
+            id_wo: Number(id)
+          },
+          include: {
+            mst_parts: true,
+            mst_suppliers: true,
+          }
+        })
+        res.json(wo)
+      } catch (error) {
+        next(error)
+      }
+    }); 
+
+  //delete wo by id
+  router.delete('/wo/:id', async (req, res, next) => {
+    try {
+      const {id} = req.params
+      const wo = await prisma.Tb_wo.delete({
+        where:{
+          id_wo: Number(id)
+        }
+      })
+      res.json(wo)
+    } catch (error) {
+      next(error)
+    }
+  });
+
 module.exports = router;

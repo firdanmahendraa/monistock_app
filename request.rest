@@ -88,10 +88,48 @@ Content-Type: application/json
 
 {
     "part_name": "A2",
-    "part_uniq": "A12",
+    "part_uniq": "A13",
     "mst_rackId": 1
 }
 
 ####
 # Delete Part by id
 DELETE http://localhost:3000/api/part/2
+
+###
+# Get tb_wo
+GET http://localhost:3000/api/wo
+
+###
+# Get tb_wo by id
+GET http://localhost:3000/api/wo/2
+
+###
+# Create tb_wo
+POST http://localhost:3000/api/wo
+Content-Type: application/json
+
+{
+    "qty_kbn": 1,
+    "qty_order": 2,
+    "date_input": "2023-05-24T23:51:57.000Z",
+    "mst_partId" : 1,
+    "mst_supplierId" : 1
+}
+
+###
+# Update tb_wo by id
+PATCH http://localhost:3000/api/wo/2 
+Content-Type: application/json
+
+{
+    "qty_kbn": 1,
+    "qty_order": 2,
+    "date_input": "2023-05-24T23:51:57.000Z",
+    "mst_partId" : 1,
+    "mst_supplierId" : 1
+}
+
+####
+# Delete Wo by id
+DELETE http://localhost:3000/api/wo/3
