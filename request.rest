@@ -31,3 +31,34 @@ Content-Type: application/json
 ####
 # Delete Supplier by id
 DELETE http://localhost:3000/api/supplier/2
+
+###
+# Get Rack
+GET http://localhost:3000/api/rack
+
+###
+# Create Rack
+POST http://localhost:3000/api/rack
+Content-Type: application/json
+
+{
+    "rack_no": "A3"
+}
+
+###
+# Get Rack by id
+GET http://localhost:3000/api/rack/3
+
+###
+# Update Rack by id
+PATCH http://localhost:3000/api/rack/3  
+Content-Type: application/json
+
+{
+    "rack_no": "A2"
+}
+
+####
+# Delete Rack by id
+DELETE http://localhost:3000/api/rack/2
+
