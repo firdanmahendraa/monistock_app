@@ -62,3 +62,36 @@ Content-Type: application/json
 # Delete Rack by id
 DELETE http://localhost:3000/api/rack/2
 
+###
+# Get Part
+GET http://localhost:3000/api/part
+
+###
+# Get Part by id
+GET http://localhost:3000/api/part/1
+
+###
+# Create Part
+POST http://localhost:3000/api/part
+Content-Type: application/json
+
+{
+    "part_name": "A1",
+    "part_uniq": "A11",
+    "mst_rackId": 1
+}
+
+###
+# Update Part by id
+PATCH http://localhost:3000/api/part/1  
+Content-Type: application/json
+
+{
+    "part_name": "A2",
+    "part_uniq": "A12",
+    "mst_rackId": 1
+}
+
+####
+# Delete Part by id
+DELETE http://localhost:3000/api/part/2

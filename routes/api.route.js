@@ -138,5 +138,83 @@ router.delete('/rack/:id', async (req, res, next) => {
   }
   });
 
+  //get all part
+  router.get('/part', async (req, res, next) => {
+    try {
+        const mst_parts = await prisma.Mst_part.findMany({
+        include: {mst_racks: true}
+        })
+    
+        const mst_racks = await prisma.Mst_rack.findMany({
+        include:{mst_parts: true}
+        
+        })
+
+        res.json({mst_parts, mst_racks})
+    } catch (error) {
+        next(error)
+    }
+    });
+
+    //get part by id
+    router.get('/part/:id', async (req, res, next) => {
+      try {
+        const {id} = req.params
+        const part = await prisma.Mst_part.findUnique({
+          where:{
+            part_no: Number(id)
+          },
+          include: {mst_racks:true}
+        })
+        res.json(part)
+      } catch (error) {
+        next(error)
+      }
+    });
+
+    //create part
+    router.post('/part', async (req, res, next) => {
+      try {
+          const part = await prisma.Mst_part.create({
+          data : req.body
+          })
+      
+          res.json({part})
+      } catch (error) {
+          next(error)
+      }
+      });
+
+  //update part by id
+  router.patch('/part/:id', async (req, res, next) => {
+    try {
+      const {id} = req.params
+      const part = await prisma.Mst_part.update({
+        data: req.body,
+        where:{
+          part_no: Number(id)
+        },
+        include: {mst_racks:true}
+      })
+      res.json(part)
+    } catch (error) {
+      next(error)
+    }
+  }); 
+
+  //delete part by id
+  router.delete('/part/:id', async (req, res, next) => {
+    try {
+      const {id} = req.params
+      const part = await prisma.Mst_part.delete({
+        where:{
+          part_no: Number(id)
+        }
+      })
+      res.json(part)
+    } catch (error) {
+      next(error)
+    }
+  });
 
 module.exports = router;
