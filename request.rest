@@ -1,0 +1,33 @@
+###
+# Get Supplier
+GET http://localhost:3000/api/supplier
+
+###
+# Create Supplier
+POST http://localhost:3000/api/supplier
+Content-Type: application/json
+
+{
+    "name_supplier": "Dan",
+    "address_supplier": "Sadanaland",
+    "phone_supplier": "0987"
+}
+
+###
+# Get Supplier by id
+GET http://localhost:3000/api/supplier/3
+
+###
+# Update Supplier by id
+PATCH http://localhost:3000/api/supplier/3  
+Content-Type: application/json
+
+{
+    "name_supplier": "Firdan",
+    "address_supplier": "Sadanaland No.45",
+    "phone_supplier": "085284070404"
+}
+
+####
+# Delete Supplier by id
+DELETE http://localhost:3000/api/supplier/2
