@@ -135,15 +135,15 @@ Content-Type: application/json
 DELETE http://localhost:3000/api/wo/3
 
 ###
-# Get tb_wo
+# Get tb_do
 GET http://localhost:3000/api/do
 
 ###
-# Get tb_wo by id
-GET http://localhost:3000/api/do/2
+# Get tb_do by id
+GET http://localhost:3000/api/do/1
 
 ###
-# Create tb_wo
+# Create tb_do
 POST http://localhost:3000/api/do
 Content-Type: application/json
 
@@ -157,13 +157,13 @@ Content-Type: application/json
 }
 
 ###
-# Update tb_wo by id
+# Update tb_do by id
 PATCH http://localhost:3000/api/do/1 
 Content-Type: application/json
 
 {
     "qty_kbn": 1,
-    "qty_order": 2,
+    "qty_order": 3,
     "no_truck": "N1111b",
     "date_input": "2023-05-24T23:51:57.000Z",
     "mst_partId" : 1,
@@ -171,5 +171,5 @@ Content-Type: application/json
 }
 
 ####
-# Delete Wo by id
-DELETE http://localhost:3000/api/do/2
+# Delete do by id
+DELETE http://localhost:3000/api/do/1

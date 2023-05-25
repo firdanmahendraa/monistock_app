@@ -323,7 +323,7 @@ router.get('/do', async (req, res, next) => {
     });
   
       const mst_parts = await prisma.Mst_part.findMany({
-      include:{tb_dos: true}
+      include:{tb_do: true}
       })
 
       const mst_suppliers = await prisma.Mst_supplier.findMany({
@@ -355,7 +355,7 @@ router.get('/do/:id', async (req, res, next) => {
   }
 });
 
-//create wo
+//create do
 router.post('/do', async (req, res, next) => {
   try {
       const dos = await prisma.Tb_do.create({
