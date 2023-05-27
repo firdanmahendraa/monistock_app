@@ -1,9 +1,13 @@
 const supplierService = require("../service/supplier.service");
 const doService = require("../service/do.service");
 const woService = require("../service/wo.service");
+const rackService = require("../service/rack.service");
+const partService = require("../service/part.service");
 const { PrismaClient } = require('@prisma/client');
 const db = new PrismaClient();
 const s$suppier = supplierService(db)
+const s$rack = rackService(db)
+const s$part = partService(db)
 const s$dos = doService(db)
 const s$wos = woService(db)
 
@@ -96,5 +100,53 @@ describe('Uji DB 3', ()=>{
             })
     
             expect(deleteWo.code).toBe(200)
+        })
+    })
+
+describe('Uji DB 4', ()=>{
+
+        test('Test Rack - All', async ()=>{
+            const req = {
+                body:{
+                    "rack_no": "A12"
+                }
+            }
+    
+            const addRack = await s$rack.addRack(req);
+    
+            expect(addRack.code).toBe(200)
+    
+            const deleteRack = await s$rack.deleteRack({
+                params:{
+                    id: addRack.data.rack.id_rack
+                }
+            })
+    
+            expect(deleteRack.code).toBe(200)
+        })
+    })
+
+describe('Uji DB 5', ()=>{
+
+        test('Test Part - All', async ()=>{
+            const req = {
+                body:{
+                    "part_name": "A2",
+                    "part_uniq": "A13",
+                    "mst_rackId": 1
+                }
+            }
+    
+            const addPart = await s$part.addPart(req);
+    
+            expect(addPart.code).toBe(200)
+    
+            const deletePart = await s$part.deletePart({
+                params:{
+                    id: addPart.data.part.part_no
+                }
+            })
+    
+            expect(deletePart.code).toBe(200)
         })
     })
