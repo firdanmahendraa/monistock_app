@@ -162,9 +162,9 @@ PATCH http://localhost:3000/api/do/1
 Content-Type: application/json
 
 {
-    "qty_kbn": 1,
-    "qty_order": 3,
-    "no_truck": "N1111b",
+    "qty_kbn": 1111,
+    "qty_order": 113,
+    "no_truck": "N11111111b",
     "date_input": "2023-05-24T23:51:57.000Z",
     "mst_partId" : 1,
     "mst_supplierId" : 1
