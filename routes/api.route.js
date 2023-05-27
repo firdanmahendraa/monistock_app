@@ -8,10 +8,10 @@ router.get('/', async (req, res, next) => {
 
 // ----------- Supplier -----------
 // Get semua isi tabel supplier
-router.get('/supplier', async (req, res) => {
-  const supplier = await prisma.Mst_supplier.findMany()
-  res.json(supplier)
-})
+// router.get('/supplier', async (req, res) => {
+//   const supplier = await prisma.Mst_supplier.findMany()
+//   res.json(supplier)
+// })
 
 // Get By:id supplier
 router.get('/supplier/:id', async (req, res, next) => {
