@@ -8,18 +8,18 @@ POST http://localhost:3000/api/supplier
 Content-Type: application/json
 
 {
-    "name_supplier": "Dan",
-    "address_supplier": "Sadanaland",
-    "phone_supplier": "0987"
+    "name_supplier": "1",
+    "address_supplier": "1",
+    "phone_supplier": "1"
 }
 
 ###
 # Get Supplier by id
-GET http://localhost:3000/api/supplier/3
+GET http://localhost:3000/api/supplier/1
 
 ###
 # Update Supplier by id
-PATCH http://localhost:3000/api/supplier/3  
+PATCH http://localhost:3000/api/supplier/1  
 Content-Type: application/json
 
 {
@@ -30,7 +30,7 @@ Content-Type: application/json
 
 ####
 # Delete Supplier by id
-DELETE http://localhost:3000/api/supplier/2
+DELETE http://localhost:3000/api/supplier/6
 
 ###
 # Get Rack
