@@ -1,9 +1,11 @@
 const supplierService = require("../service/supplier.service");
 const doService = require("../service/do.service");
+const woService = require("../service/wo.service");
 const { PrismaClient } = require('@prisma/client');
 const db = new PrismaClient();
 const s$suppier = supplierService(db)
 const s$dos = doService(db)
+const s$wos = woService(db)
 
 describe('Sample Test', function () {
     it('true',()=>{
@@ -65,3 +67,34 @@ describe('Uji DB 2', ()=>{
         expect(deleteDo.code).toBe(200)
     })
 })
+
+describe('Uji DB 3', ()=>{
+        test('Test Wo - All', async ()=>{
+            const req = {
+                body:{
+                    "qty_kbn": 1,
+                    "qty_order": 2,
+                    "no_truck": "N1234b",
+                    "date_input": "2023-05-24T23:51:57.000Z",
+                    "mst_partId" : 1,
+                    "mst_supplierId" : 1
+                }
+            }
+    
+            const addWo = await s$wos.addWo(req);
+    
+            expect(addWo.code).toBe(200)
+    
+            const result = await s$wos.addWo(req);
+    
+            expect(result.status).toBe('Unique')
+    
+            const deleteW = await s$wos.deleteWo({
+                params:{
+                    id: addWo.data.wo.id_wo
+                }
+            })
+    
+            expect(deleteW.code).toBe(200)
+        })
+    })
