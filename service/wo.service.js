@@ -87,17 +87,17 @@ class _wo{
     getWoById = async (req)=>{
         try {
             const {id} = req.params
-            const wo = await this.db.Tb_wo.findUnique({
+            const wos = await this.db.Tb_wo.findUnique({
                 where:{
-                    id: Number(id)
+                    id_wo: Number(id)
                 },
                 include: {
                     mst_parts: true,
-                    mst_suppliers: true,
-                  }
+                    mst_suppliers: true
+                }
             })
 
-            if (!wo){
+            if (!wos){
                 return{
                     code: 404
                 }
@@ -105,7 +105,7 @@ class _wo{
             return{
                 code: 200,
                 status: true,
-                data: wo
+                data: wos
             }
         } catch (error) {
             if (debug){
@@ -123,14 +123,14 @@ class _wo{
         try {
             const {qty_kbn, qty_order, date_input, mst_partId, mst_supplierId} = req.body
 
-            const wo = await this.db.Tb_wo.create({
+            const wos = await this.db.Tb_wo.create({
                 data: {qty_kbn, qty_order, date_input, mst_partId, mst_supplierId}
             })
 
             return{
                 code: 200,
                 data:{
-                    wo
+                    wos
                 }
             }
         } catch (error) {
@@ -158,29 +158,18 @@ class _wo{
     deleteWo = async (req)=>{
         try {
             const {id} = req.params
-            const wo = await this.db.Tb_wo.delete({
+            const wos = await this.db.Tb_wo.delete({
                 where:{
-                    id: Number(id)
+                    id_wo: Number(id)
                 }
             })
             return{
                 code: 200,
                 data:{
-                    wo
+                    wos
                 }
             }
         } catch (error) {
-            if (debug){
-                console.error('Error Add Wo By Id', error)
-            }
-
-            if (error.code === 'P2025'){
-                return {
-                    code: 400,
-                    status: false,
-                    error: error.meta.cause? `Sorry, ${error.meta.cause }`: `Internal Server`
-                }
-            }
             return {
                 code: 500,
                 status: false,
@@ -192,35 +181,23 @@ class _wo{
     updateWo = async (req)=>{
         try {
             const {id} = req.params
-            const wo = await this.db.Tb_wo.update({
+            const wos = await this.db.Tb_wo.update({
                 data: req.body,
                 where:{
-                    id: Number(id)
+                    id_wo: Number(id)
                 },
                 include: {
                     mst_parts: true,
-                    mst_suppliers: true,
-                  }
+                    mst_suppliers: true
+                }
             })
             return{
                 code: 200,
                 data:{
-                    wo
+                    wos
                 }
             }
         } catch (error) {
-            if (debug){
-                console.error('Error Update Wo By Id', error)
-            }
-
-            if (error.code === 'P2002') {
-                // Error Duplicate
-                return {
-                    code: 400,
-                    status: false,
-                    error: error.meta.cause? `Sorry, ${error.meta.cause }`: `Internal Server`
-                }
-            }
             return {
                 code: 500,
                 status: false,

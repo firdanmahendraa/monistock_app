@@ -11,7 +11,7 @@ class _do{
             const dos = await this.db.Tb_do.findMany({
                 include: {
                     mst_parts: true,
-                    mst_sup: true
+                    mst_suppliers: true
                 }
             })
 
@@ -40,7 +40,7 @@ class _do{
     }
     getParts = async (req)=>{
         try {
-            const mst_parts = await this.db.mst_part.findMany({
+            const mst_parts = await this.db.Mst_part.findMany({
                 include:{dos: true}
             })
 
@@ -62,7 +62,7 @@ class _do{
     }
     getSupplier = async (req)=>{
         try {
-            const mst_sup = await this.db.mst_supplier.findMany({
+            const mst_sup = await this.db.Mst_supplier.findMany({
                 include:{dos: true}
             })
 
@@ -86,13 +86,13 @@ class _do{
     getDoById = async (req)=>{
         try {
             const {id} = req.params
-            const dos = await this.db.mst_do.findUnique({
+            const dos = await this.db.Tb_do.findUnique({
                 where:{
                     id_do: Number(id)
                 },
                 include: {
                     mst_parts: true,
-                    mst_supplier: true
+                    mst_suppliers: true
                 }
             })
 
@@ -122,7 +122,7 @@ class _do{
         try {
             const {qty_kbn, qty_order, no_truck, date_input, mst_partId, mst_supplierId} = req.body
 
-            const dos = await this.db.tb_do.create({
+            const dos = await this.db.Tb_do.create({
                 data: {qty_kbn, qty_order, no_truck, date_input, mst_partId, mst_supplierId}
             })
 
@@ -144,7 +144,7 @@ class _do{
     deleteDo = async (req)=>{
         try {
             const {id} = req.params
-            const dos = await this.db.tb_do.delete({
+            const dos = await this.db.Tb_do.delete({
                 where:{
                     id_do: Number(id)
                 }
@@ -174,7 +174,7 @@ class _do{
                 },
                 include: {
                     mst_parts: true,
-                    mst_supplier: true
+                    mst_suppliers: true
                 }
             })
             return{
