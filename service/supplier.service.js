@@ -20,7 +20,7 @@ class _supplier{
             return{
                 code: 200,
                 status: true,
-                data: [supplier]
+                data: supplier
             }
         } catch (error) {
             if (debug){
